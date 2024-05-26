@@ -55,7 +55,7 @@
 
         // Fetch the CSV file and parse it
         document.addEventListener('DOMContentLoaded', function() {
-            fetch('https://raw.githubusercontent.com/TerrTerr/Initiation_Practice2/main/index.html')
+            fetch('https://raw.githubusercontent.com/TerrTerr/Initiation_Practice2/main/suggestions.csv')
                 .then(response => response.text())
                 .then(data => {
                     suggestions = data.split('\n').slice(1).map(line => line.trim()); // Parse CSV data
