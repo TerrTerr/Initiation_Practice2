@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Improv Suggestions</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            text-align: center;
+        }
+        table {
+            margin: 20px auto;
+            width: 80%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            font-size: 18px;
+        }
+        th {
+            width: 20%;
+        }
+        th:nth-child(2) {
+            width: 70%;
+        }
+        th:nth-child(3) {
+            width: 10%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button id="suggestionButton" style="font-size: 20px; padding: 10px 20px;">Get Suggestion</button>
+        <p id="suggestion" style="font-size: 24px; margin-top: 20px;"></p>
+        <input type="text" id="dialogueInput" placeholder="Type your line of dialogue..." style="font-size: 18px; padding: 10px; width: 80%; margin-top: 20px;">
+        <table id="suggestionsTable">
+            <thead>
+                <tr>
+                    <th>Suggestion</th>
+                    <th>Initiation</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
+            <tbody id="suggestions"></tbody>
+        </table>
+    </div>
+
+    <script>
+        let suggestions = [];
+        let startTime;
+
+        // Fetch the CSV file and parse it
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('https://raw.githubusercontent.com/TerrTerr/suggestions/main/suggestions.csv')
+                .then(response => response.text())
+                .then(data => {
+                    suggestions = data.split('\n').slice(1).map(line => line.trim()); // Parse CSV data
+                })
+                .catch(error => console.error('Error fetching suggestions:', error));
+        });
+
+        document.getElementById('suggestionButton').addEventListener('click', function() {
+            if (suggestions.length > 0) {
+                const randomIndex = Math.floor(Math.random() * suggestions.length);
+                const suggestion = suggestions[randomIndex];
+                document.getElementById('suggestion').innerText = suggestion;
+                startTime = new Date();  // Start the timer
+            }
+        });
+
+        document.getElementById('dialogueInput').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                const suggestion = document.getElementById('suggestion').innerText;
+                const dialogue = event.target.value;
+                if (suggestion && dialogue) {
+                    const endTime = new Date();
+                    let timeTaken = Math.round((endTime - startTime) / 1000); // Calculate time taken in seconds and round to the nearest whole number
+                    
+                    let minutes = Math.floor(timeTaken / 60);
+                    let seconds = timeTaken % 60;
+                    let timeDisplay = seconds + ' sec';
+                    if (minutes > 0) {
+                        timeDisplay = minutes + ' min, ' + timeDisplay;
+                    }
+
+                    const tableBody = document.getElementById('suggestions');
+                    const row = document.createElement('tr');
+                    const suggestionCell = document.createElement('td');
+                    const dialogueCell = document.createElement('td');
+                    const timeCell = document.createElement('td');
+
+                    suggestionCell.style.border = '1px solid #ccc';
+                    suggestionCell.style.padding = '10px';
+                    suggestionCell.style.fontSize = '18px';
+                    suggestionCell.style.width = '20%';
+
+                    dialogueCell.style.border = '1px solid #ccc';
+                    dialogueCell.style.padding = '10px';
+                    dialogueCell.style.fontSize = '18px';
+                    dialogueCell.style.width = '70%';
+
+                    timeCell.style.border = '1px solid #ccc';
+                    timeCell.style.padding = '10px';
+                    timeCell.style.fontSize = '18px';
+                    timeCell.style.width = '10%';
+
+                    suggestionCell.innerText = suggestion;
+                    dialogueCell.innerText = dialogue;
+                    timeCell.innerText = timeDisplay;
+
+                    row.appendChild(suggestionCell);
+                    row.appendChild(dialogueCell);
+                    row.appendChild(timeCell);
+                    tableBody.insertBefore(row, tableBody.firstChild); // Add the new row at the top
+
+                    document.getElementById('suggestion').innerText = '';  // Clear the suggestion
+                    event.target.value = '';
+                }
+            }
+        });
+    </script>
+</body>
+</html>
