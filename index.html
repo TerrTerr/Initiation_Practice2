@@ -47,6 +47,8 @@
             </thead>
             <tbody id="suggestions"></tbody>
         </table>
+        <button id="evaluateButton" style="font-size: 20px; padding: 10px 20px; margin-top: 20px;">Evaluate Trends</button>
+        <div id="evaluationResult" style="margin-top: 20px; font-size: 18px;"></div>
     </div>
 
     <script>
@@ -122,6 +124,34 @@
                 }
             }
         });
+
+        document.getElementById('evaluateButton').addEventListener('click', function() {
+            const rows = document.querySelectorAll('#suggestions tr');
+            let data = [];
+            rows.forEach(row => {
+                const cells = row.querySelectorAll('td');
+                if (cells.length === 3) {
+                    const suggestion = cells[0].innerText;
+                    const initiation = cells[1].innerText;
+                    const time = cells[2].innerText;
+                    data.push({ suggestion, initiation, time });
+                }
+            });
+
+            fetch('https://rbz44wze62.execute-api.us-east-2.amazonaws.com/Improvstage2/evaluate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ data })
+            })
+            .then(response => response.json())
+            .then(result => {
+                document.getElementById('evaluationResult').innerText = result.evaluation;
+            })
+            .catch(error => console.error('Error:', error));
+        });
     </script>
 </body>
 </html>
+
