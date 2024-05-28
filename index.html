@@ -149,9 +149,11 @@
                 },
                 body: JSON.stringify({ data })
             })
-            .then(response => response.json())
+            .then(response => {
+                console.log("Response received: ", response); // Check the response
+                return response.json();
+            })
             .then(result => {
-                console.log("Response received: ", result); // Check the response
                 document.getElementById('evaluationResult').innerText = result.evaluation || "Evaluation completed.";
             })
             .catch(error => console.error('Error:', error));
