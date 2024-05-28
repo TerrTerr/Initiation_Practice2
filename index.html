@@ -126,6 +126,8 @@
         });
 
         document.getElementById('evaluateButton').addEventListener('click', function() {
+            console.log("Evaluate button clicked"); // Check if button click is triggered
+
             const rows = document.querySelectorAll('#suggestions tr');
             let data = [];
             rows.forEach(row => {
@@ -138,6 +140,8 @@
                 }
             });
 
+            console.log("Data collected: ", data); // Check if data is collected correctly
+
             fetch('https://initiation-practice.glitch.me/evaluate', {
                 method: 'POST',
                 headers: {
@@ -147,6 +151,7 @@
             })
             .then(response => response.json())
             .then(result => {
+                console.log("Response received: ", result); // Check the response
                 document.getElementById('evaluationResult').innerText = result.evaluation;
             })
             .catch(error => console.error('Error:', error));
@@ -154,4 +159,3 @@
     </script>
 </body>
 </html>
-
