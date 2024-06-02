@@ -1,6 +1,6 @@
 {
-    "prompt": "Can you give feedback on the below improv initiation(s): 'I can drink a gallon of milk every morning,'",
-    "completion": " Your initiation line, "I can drink a gallon of milk every morning," sets up a specific and unique character trait and that's about it. You might think it provides a "what" (Drinking milk) but remember this is something that happens in the morning and not now by implication. 
+    "prompt": "Can you give feedback on the following improv initiation(s) based on the suggestion 'gallon': 'I can drink a gallon of milk every morning,'",
+    "completion": " Your initiation line, 'I can drink a gallon of milk every morning,' sets up a specific and unique character trait and that's about it. You might think it provides a "what" (Drinking milk) but remember this is something that happens in the morning and not now by implication. 
 Here are a few points of feedback:
 
 Character & Opinion: You've established a character with a unique habit, which can be explored further but which migt also be too much to handle this early in the scene. Depending on the experience level of your scene partner you might want to consider starting with more mundane elements of the base, instead of only a comedic caracteristic. 
@@ -9,22 +9,77 @@ Conflict-Free: It's a conflict-free statement, which is good. It leaves room for
 Overall, an interesting start that would probably benefit from more details about the base reality."
 }
 {
-    "prompt": "Can you give feedback on the below improv initiation(s): 'Hey, did you see the elephant in the backyard?'",
+    "prompt": "Can you give feedback on the below improv initiation(s) based on the suggestion 'grant': 'I grant you, the walls are 4 feet higher than anticipated.'",
+    "completion": "Your initiation line, 'I grant you, the walls are 4 feet higher than anticipated,' says little about you or scene partner while introducing a kind of boring but specific situatio/discrepancy, which provides a focus for your scene, but a bad one. Your focus should be on your relationship with your scene partner.
+Here are a few points of feedback:
+
+Mundane Specific Situation: You've set up a scenario involving unexpected wall heights, which is unrelated to you and your scene partner and strangely mundane. Maybe adding an opinion about this situation or taking responsibility for it ('I Made These Walls Higher!') could help, but the real trick would be to say something about your scene partner or establish someting about the base reality.
+Base Reality: The relationship is undefined. Clarifying who the characters are should take precedence over including 'funny' details that create a scenario or problem. The setting is somewhat implied but not explicit. Near walls?  Clearly establishing where this conversation is happening would help ground the scene.  There was no base reality here at all.
+Overall, this is not a good initiation because you are no closer to being able to easily collaborate on an improv scene with your scene partner after this initiation than you were before it. "
+}
+{
+    "prompt": "Can you give feedback on the following improv initiation based on the suggestion 'hyacinth' : 'What a beautiful garden you have, Susan!'",
+    "completion": "Your initiation line, 'What a beautiful garden you have, Susan!' establishes a positive opinion and hints at a relationship, which is a strong start.
+
+Here are a few points of feedback:
+
+Positive Relationship: You've introduced a compliment and a name, suggesting familiarity and a positive relationship, which is a good way for your scene to start.
+Setting: The setting is clear – Susan's garden. This helps to ground the scene effectively by adding an important cornerstone of te base reality.
+Overall, a lovely and positive initiation with a clear setting and relationship. You might have added other elements, by why fix what isn't broken?"
+}
+{
+    "prompt": "Can you give feedback on the following improv initiation based on the suggestion 'civilian' : 'civilian	I've always thought of myself as a civilian, you should know that if we're going to get married.'",
+    "completion": "Your initiation line sets up a relationship and reveals a significant piece of information, which is a strong start. There's a lot in it thoug and depending on your scene partner's experience level, it might be more than they can comfortably handle.
+
+Here are a few points of feedback:
+
+Relationship & Opinion: You've established a personal relationship (engagement) and a strong opinion about your own character, which is excellent. It is a kind of funny opinion because it doesn't really fit with getting married. Why would your future spouse need to know you see yourself as a civilian? SO it's surprising, which makes it potentially funny, but it might be too much at the very start of the scene. 
+Overall, a strong initiation with a clear relationship and personal stake.  Clarifying the setting and adding context could have helped it further, but the big note here is don't worry about being funny immediately. Worry about connecting and collaborating with yor scene partner. A great way to collaborate with your scene partner is to initiate witha line of dialogue they can 'catch' and work with."
+}
+{
+    "prompt": "Can you give feedback on the following improv initiation based on the suggestion 'grill' : 'You know how these police interrogations go. I'll grill you for hours if I have to.'",
+    "completion": "Your initiation line sets a clear tone and scenario but introduces the very real temptation of immediate conflict.
+
+Here are a few points of feedback:
+
+Base Reality: We know where we are, who we are and what is going on, all in one line that isn't a run on or ocerly complicated. BRAVO!
+Conflict Introduction: A police interrogation is an intense base reality and it might be so 'Loud' that it is hard to collaborate/communicate. This is a great initiation for experienced players who can handle it and a dangerous one for beginners.
+Suggestion: I was sutrprised to see the word 'grill' pop up when it did. Sometimes we can get a laugh by sneaking the suggestion in an initation or we feel we have to put it into te initiation or larger scene. We don't. It didn't hurt having the suggestion in this initiation, but be careful of worrying about fitting the suggestion into an initiation over establishing a base reality, avoiding conflict, liking your scene partner or any other early scene goal.
+Overall, great initiation."
+}
+{
+    "prompt": "Can you give feedback on the following improv initiation based on the suggestion 'site' : 'Yeah I can definitely see building a greasy spoon dinner on this plot, Harry.'",
+    "completion": "Your initiation line sets up a clear scenario and relationship, which is a solid start.
+
+Here are a few points of feedback:
+
+Base Reality: You've established a specific location and possibly a professional relationship between the characters, which is great. We know what is going on and while the relationship might go in a few different ways, at least elements of it are defined.
+Opinion: The line includes a positive vision, showing a clear opinion about the potential of the plot, adding depth to the base reality.
+Overall, a strong initiation with a clear setting, relationship, and opinion."
+}
+{
+    "prompt": "Can you give feedback on the following improv initiation based on the suggestion 'circuit' : 'Here are your morning Meds, Mary. How did you sleep?'",
+    "completion": "Your initiation line provides a clear relationship and setting, establishing a solid foundation.
+
+Here are a few points of feedback:
+
+Base Reality: The relationship (caregiver and patient) and the setting (likely a home or medical facility, but certainly a bedroom) are immediately clear, which is excellent.
+Question: The line includes a question and an unnecessary one at that. Yes, 'How did you sleep?' feels torn from the throwaway lines of a thousand movies, which lends the scene a feeling of theatrical truth. But why not just make it a statement? 'You look like you slept well." is much better. Remember questions put your scene partner on the hot seat and often lead to mistakes or unwelcome surprises."
+Overall, a strong initiation with clear roles and setting. Watch out for those questions!"
+}
+{
+    "prompt": "Can you give feedback on the following improv initiation based on the suggestion ' ' : ' '",
     "completion": " "
 }
 {
-    "prompt": "Can you give feedback on the below improv initiation(s): 'Hey, did you see the elephant in the backyard?'",
+    "prompt": "Can you give feedback on the following improv initiation based on the suggestion ' ' : ' '",
     "completion": " "
 }
 {
-    "prompt": "Can you give feedback on the below improv initiation(s): 'Hey, did you see the elephant in the backyard?'",
+    "prompt": "Can you give feedback on the following improv initiation based on the suggestion ' ' : ' '",
     "completion": " "
 }
 {
-    "prompt": "Can you give feedback on the below improv initiation(s): 'Hey, did you see the elephant in the backyard?'",
-    "completion": " "
-}
-{
-    "prompt": "Can you give feedback on the below improv initiation(s): 'Hey, did you see the elephant in the backyard?'",
+    "prompt": "Can you give feedback on the following improv initiation based on the suggestion ' ' : ' '",
     "completion": " "
 }
