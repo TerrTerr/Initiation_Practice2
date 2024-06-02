@@ -137,25 +137,32 @@
                 }
             });
 
+            // Ensure the model name is correct and prompt length is within limits
+            const apiKey = 'sk-proj-Bn19bfS5o0gVqDKGcDaaT3BlbkFJMfT9vPdZtyWlzIk5MmMg';
+            const model = 'gpt-4:ft-your-fine-tuned-model';
+            const basePrompt = `Please assess the following initiation(s) (an initiation is the first lines of an improv comedy scene) based on this specific criteria. The suggestions the initiations are based on will also be provided. Criteria for evaluation include:
+1. Positive attributes, praise adding information known as the 'base reality': including WHO the characters are (relationship), WHERE the scene is taking place, and WHAT is happening in the scene. Not as important but sometimes considered to be part of the base reality is an opinion or feeling held by either character. So starting with a strong feeling or opinion is considered good, but not as good as saying WHO, WHERE and/or WHAT.
+2. Negative attributes: criticize initiations that are missing all essential elements of the base reality (who, where, what, opinion/feeling), or include overt conflicts, problems, accusations, excessive vagueness, focus on situations or problems rather than characters, feature significant coyness, questions, establishing dislike or stranger relationships between characters, first-day scenarios or characters being below average intelligence, detrimental inclusion of the suggestion, and initiating with excessively dramatic or overly exciting lines. Minor excitement or other feeling is acceptable. Initiations that are overly complex or tricky for the scene partner can also be noted as potentially problematic.
+3. Initiating without conflict and with mundane, every-day lines is considered good.
+Focus your feedback on three main points, mentioning that there are many potential notes but concentrating on these three. The feedback should not be numbered but instead delivered as a discussion. Avoid going through initiations one by one. Instead, broad notes that apply to multiple scenes will be provided, with examples as needed. The absence of one or two positive attributes (base reality elements) is not necessarily bad and should not be noted for improvement unless all elements are missing or largely missing multiple times. Feedback will be concise, limited to 100 words, and the tone of communication is friendly and casual.`;
+
+            const fullPrompt = `${basePrompt}\n\n${data.map(item => `Suggestion: ${item.suggestion}\nInitiation: ${item.initiation}`).join('\n\n')}`;
+
             fetch('https://api.openai.com/v1/completions', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': 'Bearer sk-proj-Bn19bfS5o0gVqDKGcDaaT3BlbkFJMfT9vPdZtyWlzIk5MmMg'
+                    'Authorization': `Bearer ${apiKey}`
                 },
                 body: JSON.stringify({
-                    model: 'gpt-4:ft-your-fine-tuned-model',
-                    prompt: `Please assess the following initiation(s) (an initiation is the first lines of an improv comedy scene) based on this specific criteria. The suggestions the initiations are based on will also be provided. Criteria for evaluation include:
-1. Positive attributes, praise adding information known as the 'base reality': including WHO the characters are (relationship), WHERE the scene is taking place, and WHAT is happening in the scene. Not as important but sometimes considered to be part of the base reality is an opinion or feeling held by either character. So starting with a strong feeling or opinion is considered good, but not as good as saying WHO, WHERE and/or WHAT..
-2. Negative attributes: criticize initiations that are missing all essential elements of the base reality (who, where, what, opinion/feeling), or include overt conflicts, problems, accusations, excessive vagueness, focus on situations or problems rather than characters, feature significant coyness, questions, establishing dislike or stranger relationships between characters, first-day scenarios or characters being below average intelligence, detrimental inclusion of the suggestion, and initiating with excessively dramatic or overly exciting lines. Minor excitement or other feeling is acceptable. Initiations that are overly complex or tricky for the scene partner can also be noted as potentially problematic.
-3. Initiating without conflict and with mundane, every-day lines is considered good.
-Focus your feedback on three main points, mentioning that there are many potential notes but concentrating on these three. The feedback should not be numbered but instead delivered as a discussion. Avoid going through initiations one by one. Instead, broad notes that apply to multiple scenes will be provided, with examples as needed. The absence of one or two positive attributes (base reality elements) is not necessarily bad and should not be noted for improvement unless all elements are missing or largely missing multiple times. Feedback will be concise, limited to 100 words, and the tone of communication is friendly and casual.\n\n${data.map(item => `Suggestion: ${item.suggestion}\nInitiation: ${item.initiation}`).join('\n\n')}`,
+                    model: model,
+                    prompt: fullPrompt,
                     max_tokens: 500
                 })
             })
             .then(response => response.json())
             .then(result => {
-                document.getElementById('evaluationResult').innerText = result.choices[0].text.trim() || "Evaluation completed.";
+                document.getElementById('evaluationResult').innerText = result.choices && result.choices.length > 0 ? result.choices[0].text.trim() : "Evaluation completed.";
             })
             .catch(error => console.error('Error:', error));
         });
