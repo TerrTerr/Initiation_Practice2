@@ -1,17 +1,17 @@
 import openai
 
-openai.api_key = 'your-api-key'
+openai.api_key = 'sk-proj-Bn19bfS5o0gVqDKGcDaaT3BlbkFJMfT9vPdZtyWlzIk5MmMg'
 
 # Upload your JSONL file
 response = openai.File.create(
-  file=open("fine_tuning_data.jsonl"),
+  file=open("FineTuneData"),
   purpose='fine-tune'
 )
 
 # Start fine-tuning
 fine_tune_response = openai.FineTune.create(
   training_file=response['id'],
-  model="davinci"
+  model="gpt-4"
 )
 
 # Monitor the fine-tuning process
@@ -21,7 +21,7 @@ print(status)
 
 # Use the fine-tuned model (after completion)
 response = openai.Completion.create(
-  model="davinci:ft-your-fine-tuned-model",
+  model="gpt-4:ft-your-fine-tuned-model",
   prompt="Please assess the following initiation(s): 'Hey, did you see the elephant in the backyard?' The suggestion was 'elephant'.",
   max_tokens=100
 )
