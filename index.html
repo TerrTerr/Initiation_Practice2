@@ -60,17 +60,23 @@
             fetch('https://raw.githubusercontent.com/TerrTerr/Initiation_Practice2/main/suggestions.csv')
                 .then(response => response.text())
                 .then(data => {
+                    console.log('CSV data fetched:', data);
                     suggestions = data.split('\n').slice(1).map(line => line.trim()); // Parse CSV data
+                    console.log('Parsed suggestions:', suggestions);
                 })
                 .catch(error => console.error('Error fetching suggestions:', error));
         });
 
         document.getElementById('suggestionButton').addEventListener('click', function() {
+            console.log('Suggestion button clicked');
             if (suggestions.length > 0) {
                 const randomIndex = Math.floor(Math.random() * suggestions.length);
                 const suggestion = suggestions[randomIndex];
+                console.log('Selected suggestion:', suggestion);
                 document.getElementById('suggestion').innerText = suggestion;
                 startTime = new Date();  // Start the timer
+            } else {
+                console.log('No suggestions available');
             }
         });
 
@@ -137,7 +143,7 @@
                 }
             });
 
-            const apiKey = 'sk-proj-t3PiL8GMGelKbCamzLHsT3BlbkFJ9XuwhGQ5txJXcOSiGYxG';
+            const apiKey = 'sk-proj-Bn19bfS5o0gVqDKGcDaaT3BlbkFJMfT9vPdZtyWlzIk5MmMg';
             const model = 'ft:gpt-3.5-turbo-1106:the-radical-agreement-project:initiation:9WCeVYw0'; // Use your fine-tuned model
             const basePrompt = `Please assess the following initiation(s) (an initiation is the first lines of an improv comedy scene) based on this specific criteria. The suggestions the initiations are based on will also be provided. Criteria for evaluation include:
 1. Positive attributes, praise adding information known as the 'base reality': including WHO the characters are (relationship), WHERE the scene is taking place, and WHAT is happening in the scene. Not as important but sometimes considered to be part of the base reality is an opinion or feeling held by either character. So starting with a strong feeling or opinion is considered good, but not as good as saying WHO, WHERE and/or WHAT.
