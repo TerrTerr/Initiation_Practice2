@@ -30,6 +30,9 @@
         th:nth-child(3) {
             width: 10%;
         }
+        th:nth-child(4) {
+            width: 10%;
+        }
     </style>
 </head>
 <body>
@@ -43,11 +46,11 @@
                     <th>Suggestion</th>
                     <th>Initiation</th>
                     <th>Time</th>
+                    <th>Evaluate</th>
                 </tr>
             </thead>
             <tbody id="suggestions"></tbody>
         </table>
-        <button id="evaluateButton" style="font-size: 20px; padding: 10px 20px; margin-top: 20px;">Evaluate Trends</button>
         <div id="evaluationResult" style="margin-top: 20px; font-size: 18px;"></div>
     </div>
 
@@ -100,6 +103,8 @@
                     const suggestionCell = document.createElement('td');
                     const dialogueCell = document.createElement('td');
                     const timeCell = document.createElement('td');
+                    const evaluateCell = document.createElement('td');
+                    const evaluateButton = document.createElement('button');
 
                     suggestionCell.style.border = '1px solid #ccc';
                     suggestionCell.style.padding = '10px';
@@ -116,69 +121,78 @@
                     timeCell.style.fontSize = '18px';
                     timeCell.style.width = '10%';
 
+                    evaluateCell.style.border = '1px solid #ccc';
+                    evaluateCell.style.padding = '10px';
+                    evaluateCell.style.fontSize = '18px';
+                    evaluateCell.style.width = '10%';
+
                     suggestionCell.innerText = suggestion;
                     dialogueCell.innerText = dialogue;
                     timeCell.innerText = timeDisplay;
+                    evaluateButton.innerText = 'Evaluate';
+                    evaluateButton.style.fontSize = '16px';
+                    evaluateButton.style.padding = '5px 10px';
 
+                    evaluateButton.addEventListener('click', function() {
+                        const model = 'ft:gpt-3.5-turbo-1106:the-radical-agreement-project::9eOK7pYH'; // Correct fine-tuned model identifier
+                        const basePrompt = `
+Please evaluate the following improv scene initiation. Guidelines for evaluation are below, but please do not deliver your feedback in the below format. Instead, please use a conversational tone, as if you were an improv teacher speaking to an improv student. Please also limit your comments to 2 or 3 notes:
+- Compliment defining the WHO, WHERE or WHAT
+- Compliment defining strong opinions or feelings for either character
+- Criticize including conflicts, problems, accusations or questions in the initiation because they make collaboration more difficult for your scene partner, especially if your scene partner is a beginner.
+- Criticize not liking your scene partner's character and compliment liking them
+- Criticize overly dramatic or exciting initiations as they make collaboration harder
+- Criticize overly complex or lengthy initiations
+- Compliment initiating without conflict and creating clear mundane circumstances
+`;
+
+                        const fullPrompt = `${basePrompt}\n\nSuggestion: ${suggestion}\nInitiation: ${dialogue}`;
+                        
+                        console.log('Full prompt:', fullPrompt); // Debugging line to check prompt content
+
+                        // **Highlighted Portion: Making a request to the Glitch server**
+                        fetch('https://initiation-practice.glitch.me/evaluate', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                model: model,
+                                prompt: fullPrompt
+                            })
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            return response.json();
+                        })
+                        .then(result => {
+                            console.log('API response:', result); // Debugging line to check response co
+                            if (result.choices && result.choices.length > 0) {
+                                console.log('Response text:', result.choices[0].text); // Log the response text
+                                document.getElementById('evaluationResult').innerText = result.choices[0].text.trim();
+                            } else {
+                                document.getElementById('evaluationResult').innerText = "Evaluation completed.";
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            document.getElementById('evaluationResult').innerText = "Error in evaluation.";
+                        });
+                    });
+
+                    evaluateCell.appendChild(evaluateButton);
                     row.appendChild(suggestionCell);
                     row.appendChild(dialogueCell);
                     row.appendChild(timeCell);
+                    row.appendChild(evaluateCell);
                     tableBody.insertBefore(row, tableBody.firstChild); // Add the new row at the top
 
                     document.getElementById('suggestion').innerText = '';  // Clear the suggestion
                     event.target.value = '';
                 }
             }
-        });
-
-        document.getElementById('evaluateButton').addEventListener('click', function() {
-            const rows = document.querySelectorAll('#suggestions tr');
-            let data = [];
-            rows.forEach(row => {
-                const cells = row.querySelectorAll('td');
-                if (cells.length === 3) {
-                    const suggestion = cells[0].innerText;
-                    const initiation = cells[1].innerText;
-                    data.push({ suggestion, initiation });
-                }
-            });
-
-            const model = 'ft:gpt-3.5-turbo-1106:the-radical-agreement-project::9eOK7pYH'; // Correct fine-tuned model identifier
-            const basePrompt = `Please evaluate the following improv scene initiation. Guidelines for evaluation are below, but please do not deliver your feedback in the below format. Instead, please use a conversational tone, as if you were an improv teacher speaking to an improv student. Please also limit your comments to 2 or 3 notes: - Compliment defining the WHO, WHERE or WHAT - Compliment defining strong opinions or feelings for either character - Criticize including conflicts, problems, accusations or questions in the initiation because they make collaboration more difficult for your scene partner, especially if your scene partner is a beginner. - Criticize not liking your scene partner's character and compliment liking them - Criticize overly dramatic or exciting initiations as they make collaboration harder - Criticize overly complex or lengthy initiations - Compliment initiating without conflict and creating clear mundane circumstances`;
-
-            const fullPrompt = `${basePrompt}\n\n${data.map(item => `Suggestion: ${item.suggestion}\nInitiation: ${item.initiation}`).join('\n\n')}`;
-
-            console.log('Full prompt:', fullPrompt); // Debugging line to check prompt content
-
-            // **Highlighted Portion: Making a request to the Glitch server**
-            fetch('https://initiation-practice.glitch.me/evaluate', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    model: model,
-                    prompt: fullPrompt
-                })
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(result => {
-                console.log('API response:', result); // Debugging line to check response content
-                if (result.choices && result.choices.length > 0) {
-                    document.getElementById('evaluationResult').innerText = result.choices[0].text.trim();
-                } else {
-                    document.getElementById('evaluationResult').innerText = "Evaluation completed.";
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                document.getElementById('evaluationResult').innerText = "Error in evaluation.";
-            });
         });
     </script>
 </body>
