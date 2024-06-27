@@ -159,6 +159,8 @@ Please evaluate the following improv scene initiation. Guidelines for evaluation
 
             const fullPrompt = `${basePrompt}\n\n${data.map(item => `Suggestion: ${item.suggestion}\nInitiation: ${item.initiation}`).join('\n\n')}`;
 
+            console.log('Full prompt:', fullPrompt); // Debugging line to check prompt content
+
             // **Highlighted Portion: Making a request to the Glitch server**
             fetch('https://initiation-practice.glitch.me/evaluate', {
                 method: 'POST',
@@ -177,6 +179,7 @@ Please evaluate the following improv scene initiation. Guidelines for evaluation
                 return response.json();
             })
             .then(result => {
+                console.log('API response:', result); // Debugging line to check response content
                 if (result.choices && result.choices.length > 0) {
                     document.getElementById('evaluationResult').innerText = result.choices[0].text.trim();
                 } else {
