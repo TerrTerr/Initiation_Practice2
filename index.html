@@ -144,18 +144,7 @@
             });
 
             const model = 'ft:gpt-3.5-turbo-1106:the-radical-agreement-project::9eOK7pYH'; // Correct fine-tuned model identifier
-            const basePrompt = `
-Please evaluate the following improv scene initiation. Guidelines for evaluation are below, but please do not deliver your feedback in the below format. Instead, please use a conversational tone, as if you were an improv teacher speaking to an improv student. Please also limit your comments to 2 or 3 notes:
-- Compliment defining the WHO, WHERE or WHAT
-- Compliment defining strong opinions or feelings for either character
-
-- Criticize including conflicts, problems, accusations or questions in the initiation because they make collaboration more difficult for your scene partner, especially if your scene partner is a beginner.
-
-- Criticize not liking your scene partner's character and compliment liking them
-- Criticize overly dramatic or exciting initiations as they make collaboration harder
-- Criticize overly complex or lengthy initiations
-- Compliment initiating without conflict and creating clear mundane circumstances
-`;
+            const basePrompt = `Please evaluate the following improv scene initiation. Guidelines for evaluation are below, but please do not deliver your feedback in the below format. Instead, please use a conversational tone, as if you were an improv teacher speaking to an improv student. Please also limit your comments to 2 or 3 notes: - Compliment defining the WHO, WHERE or WHAT - Compliment defining strong opinions or feelings for either character - Criticize including conflicts, problems, accusations or questions in the initiation because they make collaboration more difficult for your scene partner, especially if your scene partner is a beginner. - Criticize not liking your scene partner's character and compliment liking them - Criticize overly dramatic or exciting initiations as they make collaboration harder - Criticize overly complex or lengthy initiations - Compliment initiating without conflict and creating clear mundane circumstances`;
 
             const fullPrompt = `${basePrompt}\n\n${data.map(item => `Suggestion: ${item.suggestion}\nInitiation: ${item.initiation}`).join('\n\n')}`;
 
